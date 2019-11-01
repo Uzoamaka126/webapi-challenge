@@ -46,23 +46,6 @@ router.get('/', (req, res) => {
 // Get a particular project by id --done!
 router
     .get('/:id', validateProjectId, (req, res) => {
-        // Projects
-        //     .get(query)
-        //     .then(project => {
-        //         if(project) {
-        //             res.status(200).json(project);
-        //         } else {
-        //             res.status(404).json({
-        //                 message: 'Project not found'
-        //             })
-        //         }
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //         res.status(500).json({
-        //             message: 'Project could not be retrieved'
-        //         });
-        //     });
         return res.status(200).json(req.project);
 });
 
@@ -107,6 +90,8 @@ router.put('/:id', validateProjectId, (req, res) => {
         })
     })
 })
+
+
 function validateProjectId(req, res, next) {
     const { id } = req.params;
     if(Number(id) == id) {
