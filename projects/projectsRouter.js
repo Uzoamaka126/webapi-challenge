@@ -66,6 +66,7 @@ router
         return res.status(200).json(req.project);
 });
 
+// Get all actions from a particular project
 router
     .get('/:id/actions', validateProjectId, (req, res) => {
         Projects.getProjectActions(req.project.id)
@@ -81,6 +82,31 @@ router
     });
 })
 
+router.delete(':/id', validateProjectId, (req, res) => {
+    Projects.remove(req.project.id)
+    .then(() => {
+        res.status(200).json({
+            message: "This project has been deleted"
+        })
+    })
+    .catch(error => {
+        res.status(500).json({
+            message: "Error deleting project"
+        })
+    })
+});
+
+router.put('/:id', validateProjectId, (req, res) => {
+    Projects.update(req.project.id, req.body)
+    .then(project => {
+        res.status(200).json(project);
+    })
+    .catch(error => {
+        res.status(500).json({
+            message: "Error updating project"
+        })
+    })
+})
 function validateProjectId(req, res, next) {
     const { id } = req.params;
     if(Number(id) == id) {
