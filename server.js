@@ -1,6 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
-// const actionRouter = require('./actions/actionsRouter');
+const actionRouter = require('./actions/actionsRouter');
 const projectRouter = require('./projects/projectsRouter');
 
 const server = express();
@@ -10,7 +10,7 @@ server.use(express.json());
 server.use(logger);
 
 server.use('/api/projects', projectRouter);
-// server.use('/api/actions', actionRouter);
+server.use('/api/projects/:id/actions', actionRouter);
 
 server.get('/', (req, res) => {
     res.send(`<h2>Let's write some middleware</h2>`);

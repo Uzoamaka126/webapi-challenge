@@ -27,7 +27,7 @@ router.post('/', validateAction, (req, res) => {
 
 // Get a specific action
 router
-    .get('/:id', validateActionId, (req, res) => {
+    .get('/:id', validateProjectId, validateActionId, (req, res) => {
         return res.status(200).json(req.action)
 });
 
@@ -61,9 +61,9 @@ function validateProjectId(req, res, next) {
     const { id } = req.params;
     if(Number(id) == id) {
         Projects.getById(id)
-        .then(action => {
-            if(action) {
-                req.action = action;
+        .then(project => {
+            if(project) {
+                req.project = project;
                 next()
             } else {
                 res.status(400).json({
@@ -86,7 +86,7 @@ function validateProjectId(req, res, next) {
 function validateActionId(req, res, next) {
     const { id } = req.params;
     if(Number(id) == id) {
-        Actions.getById(id)
+        Actions.get(id)
         .then(action => {
             if(action) {
                 req.action = action;
