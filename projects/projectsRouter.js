@@ -65,7 +65,7 @@ router
     });
 })
 
-router.delete(':/id', validateProjectId, (req, res) => {
+router.delete("/:id", validateProjectId, (req, res) => {
     Projects.remove(req.project.id)
     .then(() => {
         res.status(200).json({
